@@ -91,7 +91,7 @@ public class Admin extends javax.swing.JFrame {
          lbltotalstudent.setText(
         "Total Students: " + tblusers.getRowCount()
         );
-               
+     btnsearch.addActionListener(this::btnsearchActionPerformed);          
           
       // Set the table model
     DefaultTableModel model = new DefaultTableModel(
@@ -136,6 +136,7 @@ private Object[] getColumnNames() {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblusers = new javax.swing.JTable();
@@ -145,7 +146,11 @@ private Object[] getColumnNames() {
         jLabel2 = new javax.swing.JLabel();
         btnupdate1 = new javax.swing.JButton();
         btndelete = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        btnsearch = new javax.swing.JButton();
+        txtsearch = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+
+        jPanel2.setBackground(new java.awt.Color(245, 245, 255));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(245, 245, 255));
@@ -179,7 +184,7 @@ private Object[] getColumnNames() {
         });
         jScrollPane1.setViewportView(tblusers);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 500, 260));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 500, 260));
 
         btnlogout.setBackground(new java.awt.Color(95, 90, 175));
         btnlogout.setForeground(new java.awt.Color(255, 255, 255));
@@ -190,33 +195,53 @@ private Object[] getColumnNames() {
         lbltotalstudent.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lbltotalstudent.setForeground(new java.awt.Color(95, 90, 175));
         lbltotalstudent.setText("Total Student:");
-        getContentPane().add(lbltotalstudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 130, 10));
+        getContentPane().add(lbltotalstudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 130, 10));
 
         btnaddstudent.setBackground(new java.awt.Color(95, 90, 175));
         btnaddstudent.setForeground(new java.awt.Color(255, 255, 255));
         btnaddstudent.setText("Add Student");
         btnaddstudent.addActionListener(this::btnaddstudentActionPerformed);
-        getContentPane().add(btnaddstudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, 30));
+        getContentPane().add(btnaddstudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, -1, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(25, 32, 77));
         jLabel2.setText("ADMIN DASHBOARD");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
 
         btnupdate1.setBackground(new java.awt.Color(95, 90, 175));
         btnupdate1.setForeground(new java.awt.Color(255, 255, 255));
         btnupdate1.setText("Update");
         btnupdate1.addActionListener(this::btnupdate1ActionPerformed);
-        getContentPane().add(btnupdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, -1, 30));
+        getContentPane().add(btnupdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, -1, 30));
 
         btndelete.setBackground(new java.awt.Color(95, 90, 175));
         btndelete.setForeground(new java.awt.Color(255, 255, 255));
         btndelete.setText("Delete");
         btndelete.addActionListener(this::btndeleteActionPerformed);
-        getContentPane().add(btndelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, -1, 30));
+        getContentPane().add(btndelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, -1, 30));
 
-        jPanel2.setBackground(new java.awt.Color(245, 245, 255));
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 430));
+        btnsearch.setBackground(new java.awt.Color(95, 90, 175));
+        btnsearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnsearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnsearch.setText("Search");
+        btnsearch.addActionListener(this::btnsearchActionPerformed);
+        getContentPane().add(btnsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
+        getContentPane().add(txtsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 110, -1));
+
+        jPanel5.setBackground(new java.awt.Color(245, 245, 255));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 560, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 430, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -480,6 +505,114 @@ private Object[] getColumnNames() {
 
     }//GEN-LAST:event_btndeleteActionPerformed
 
+    private void btnsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchActionPerformed
+        String searchText = txtsearch.getText().trim();
+
+    if (searchText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter a search keyword.");
+        loadUsers();
+        return;
+    }
+
+    DefaultTableModel model =
+        (DefaultTableModel) tblusers.getModel();
+
+    model.setRowCount(0);
+
+    String sql = "SELECT id, Firstname, Lastname, Age, "
+               + "Course, Section, username "
+               + "FROM [user] "
+               + "WHERE Firstname LIKE ? "
+               + "OR Lastname LIKE ? "
+               + "OR Course LIKE ? "
+               + "OR Section LIKE ? "
+               + "OR username LIKE ?";
+
+    try {
+        if (conn == null || conn.isClosed()) {
+            JOptionPane.showMessageDialog(
+                this, "Database connection is not available."
+            );
+            return;
+        }
+
+        // If the input is a number, search the ID first.
+        if (searchText.matches("\\d+")) {
+
+            String idSQL = "SELECT id, Firstname, Lastname, Age, "
+                         + "Course, Section, username "
+                         + "FROM [user] WHERE id = ?";
+
+            try (PreparedStatement pst = conn.prepareStatement(idSQL)) {
+                pst.setInt(1, Integer.parseInt(searchText));
+
+                try (ResultSet rs = pst.executeQuery()) {
+                    while (rs.next()) {
+                        model.addRow(new Object[]{
+                            rs.getInt("id"),
+                            rs.getString("Firstname"),
+                            rs.getString("Lastname"),
+                            rs.getObject("Age"),
+                            rs.getString("Course"),
+                            rs.getString("Section"),
+                            rs.getString("username")
+                        });
+                    }
+                }
+            }
+        }
+
+        // If no ID was found, search the text fields.
+        if (model.getRowCount() == 0) {
+
+            try (PreparedStatement pst = conn.prepareStatement(sql)) {
+
+                String keyword = "%" + searchText + "%";
+
+                for (int i = 1; i <= 5; i++) {
+                    pst.setString(i, keyword);
+                }
+
+                try (ResultSet rs = pst.executeQuery()) {
+                    while (rs.next()) {
+                        model.addRow(new Object[]{
+                            rs.getInt("id"),
+                            rs.getString("Firstname"),
+                            rs.getString("Lastname"),
+                            rs.getObject("Age"),
+                            rs.getString("Course"),
+                            rs.getString("Section"),
+                            rs.getString("username")
+                        });
+                    }
+                }
+            }
+        }
+
+        lbltotalstudent.setText(
+            "Total Students: " + model.getRowCount()
+        );
+
+        if (model.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(
+                this, "No matching student found."
+            );
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid ID number.");
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Search error: " + e.getMessage(),
+            "Database Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_btnsearchActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -509,13 +642,16 @@ private Object[] getColumnNames() {
     private javax.swing.JButton btnaddstudent;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnlogout;
+    private javax.swing.JButton btnsearch;
     private javax.swing.JButton btnupdate1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbltotalstudent;
     private javax.swing.JTable tblusers;
+    private javax.swing.JTextField txtsearch;
     // End of variables declaration//GEN-END:variables
 }

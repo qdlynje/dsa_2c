@@ -128,7 +128,7 @@ public class Login extends javax.swing.JFrame {
                 } else if ("Student".equalsIgnoreCase(role)) {
 
                     Student student = new Student();
-                    student.setVisible(true);
+                    student.setVisible(true);                     
 
                 } else {
 

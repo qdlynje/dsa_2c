@@ -19,6 +19,9 @@ Connection conn;
 PreparedStatement pst;
 ResultSet rs;
 
+
+private String studentUsername;
+
     private String loggedInUsername;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Student.class.getName());
@@ -28,47 +31,92 @@ ResultSet rs;
      */
     public Student() {
         initComponents();
-         setLocationRelativeTo(null);
-             
-    }
+
+    this.conn = MsConnectAccess.conn();
+
+    setLocationRelativeTo(null);
+
+    DefaultTableModel model = new DefaultTableModel(
+        new Object[][] {},
+        new String[] {
+            "ID", "First Name", "Last Name",
+            "Age", "Course", "Section", "Username"
+        }
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    tbluser.setModel(model);
+
+    loadStudentRecord();
+}
+   
      private void loadStudentRecord(){
      
-     String sql = "SELECT id, Firstname, Lastname, Age, "
-                   + "Course, Section, username "
-                   + "FROM user WHERE username = ?";
+     // Do not load records if no student has logged in
+    if (studentUsername == null || studentUsername.trim().isEmpty()) {
+        return;
+    }
+
+    DefaultTableModel model =
+            (DefaultTableModel) tbluser.getModel();
+
+    model.setRowCount(0);
+
+    String sql = "SELECT id, Firstname, Lastname, Age, "
+               + "Course, Section, username "
+               + "FROM [user] WHERE username = ?";
+
+    try {
+        if (conn == null || conn.isClosed()) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Database connection is not available."
+            );
+            return;
+        }
 
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
 
-            pst.setString(1, loggedInUsername);
+            pst.setString(1, studentUsername);
 
             try (ResultSet rs = pst.executeQuery()) {
 
-                javax.swing.table.DefaultTableModel model =
-                    (javax.swing.table.DefaultTableModel) tblstudent.getModel();
-
-                model.setRowCount(0);
-
                 while (rs.next()) {
-                    model.addRow(new Object[]{
+                    model.addRow(new Object[] {
                         rs.getInt("id"),
                         rs.getString("Firstname"),
                         rs.getString("Lastname"),
-                        rs.getInt("Age"),
+                        rs.getObject("Age"),
                         rs.getString("Course"),
                         rs.getString("Section"),
                         rs.getString("username")
                     });
                 }
             }
+        }
 
-        } catch (SQLException e) {
+        if (model.getRowCount() == 0) {
             JOptionPane.showMessageDialog(
                 this,
-                "Error loading student record: " + e.getMessage(),
-                "Database Error",
-                JOptionPane.ERROR_MESSAGE
+                "No student record found for username: "
+                    + studentUsername
             );
-        }   
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Error loading student record: " + e.getMessage(),
+            "Database Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+
+        e.printStackTrace();
+    }
     }
     
 
@@ -82,7 +130,7 @@ ResultSet rs;
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblstudent = new javax.swing.JTable();
+        tbluser = new javax.swing.JTable();
         lblstudash = new javax.swing.JLabel();
         btnlogout = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -91,7 +139,7 @@ ResultSet rs;
         setBackground(new java.awt.Color(95, 90, 175));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblstudent.setModel(new javax.swing.table.DefaultTableModel(
+        tbluser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -102,7 +150,7 @@ ResultSet rs;
                 "ID", "First Name", "Last Name", "Age", "Course", "Section"
             }
         ));
-        jScrollPane1.setViewportView(tblstudent);
+        jScrollPane1.setViewportView(tbluser);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 184));
 
@@ -189,6 +237,6 @@ ResultSet rs;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblstudash;
-    private javax.swing.JTable tblstudent;
+    private javax.swing.JTable tbluser;
     // End of variables declaration//GEN-END:variables
 }

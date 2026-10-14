@@ -57,6 +57,7 @@ public class CRUD extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblcreate = new javax.swing.JLabel();
         btnsignin = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 255));
 
@@ -131,6 +132,21 @@ public class CRUD extends javax.swing.JFrame {
         btnsignin.setText("Sign in");
         btnsignin.addActionListener(this::btnsigninActionPerformed);
         getContentPane().add(btnsignin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 80, 30));
+
+        jPanel5.setBackground(new java.awt.Color(245, 245, 255));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 420, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -343,6 +359,7 @@ public class CRUD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblage;
     private javax.swing.JLabel lblcourse;
     private javax.swing.JLabel lblcreate;
